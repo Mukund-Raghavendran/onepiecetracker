@@ -2,6 +2,7 @@ package onepiecetracker;
 
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 
 public class Main {
 
@@ -24,7 +25,7 @@ public class Main {
 					String line = br.readLine();
 
 					while (true) {
-						if (line.contains("List of Chapters")) {
+						if (line.contains("One Piece Chapter")) {
 
 							break;
 						} else {
@@ -32,18 +33,27 @@ public class Main {
 						}
 					}
 
-					for (int i = 0; i < 5; i++) {
+					for (int i = 0; i < 1; i++) {
 						fullhtml += line;
 						line = br.readLine();
 					}
 
 				}
-				if (oldhtml.equals(fullhtml)) {
+				File myObj = new File("savelocation.txt");
+			    Scanner myReader = new Scanner(myObj);
+			    String data = myReader.nextLine();
+			    myReader.close();
+				if (data.equals(fullhtml)) {
 
 					continue;
 				} else {
+				    
+					System.out.println(fullhtml);
 					SendNotification();
-					oldhtml = fullhtml;
+					BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\GIT\\onepiecetracker\\src\\savelocation"));
+				    writer.write(fullhtml);
+				    
+				    writer.close();
 
 				}
 			}
@@ -61,10 +71,10 @@ public class Main {
 			String urlString = "https://api.telegram.org/bot%s/sendMessage?chat_id=%s&text=%s";
 
 			// Add Telegram token (given Token is fake)
-			String apiToken = "UWUPOGCHAMPPLZNOSTEALTOKEN";
+			String apiToken = "6021519227:AAGfYGONImY48NJeP5WxJTVey_Hkhql3-P4";
 
 			// Add chatId (given chatId is fake)
-			String chatId = "UWUPOGCHAMPPLZNOSTEALTOKEN";
+			String chatId = "6238382692";
 			String text = "New Chapter";
 
 			urlString = String.format(urlString, apiToken, chatId, text);
